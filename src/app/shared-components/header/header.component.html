@@ -1,0 +1,8 @@
+<nb-actions size="small">
+  <nb-action *ngFor="let action of headerActions">
+    <button nbButton outline [routerLink]="action.link">
+      <nb-icon [icon]="action.icon"></nb-icon>&nbsp;
+      <div>{{action.title}}</div>
+    </button>
+  </nb-action>
+</nb-actions>
