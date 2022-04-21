@@ -5,7 +5,7 @@ import {
   HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, OperatorFunction, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { UserStateService } from './user-state.service';
 import { Router } from '@angular/router';
@@ -84,18 +84,20 @@ export class ApiService {
     };
     return this.httpClient
       .get<T>(this.getEndpointHostUrl() + path, options)
-      .pipe(
-        tap(
-          () => {},
-          (err: HttpErrorResponse) => {
-            // Force logout if unauthorized OR forbidden
-            if (err.status === 401 || err.status === 403) {
-              this.userStateService.clearToken();
-              this.router.navigateByUrl('/', { replaceUrl: true });
-            }
-          }
-        )
-      );
+      .pipe(this.tapCatchUnauthorized());
+  }
+
+  private tapCatchUnauthorized(): OperatorFunction<any, any> {
+    return tap({
+      next: () => {},
+      error: (err: HttpErrorResponse) => {
+        // Force logout if unauthorized OR forbidden
+        if (err.status === 401 || err.status === 403) {
+          this.userStateService.clearToken();
+          this.router.navigateByUrl('/', { replaceUrl: true });
+        }
+      },
+    });
   }
 
   /**
