@@ -60,44 +60,23 @@ export class ApiService {
    *
    * @param path
    * @param data
+   * @param paramsIsArray
    */
   public authenticatedGet<T>(
     path: string,
-    data: { [param: string]: string } = {}
+    data: { [param: string]: string } = {},
+    paramsIsArray: boolean = false
   ): Observable<T> {
     let params = new HttpParams();
-    for (const dataKey in data) {
-      if (dataKey && data[dataKey]) {
-        params = params.set(dataKey, data[dataKey]);
+    if (paramsIsArray) {
+      params = this.arrayParamsSet(params, data);
+    } else {
+      for (const dataKey in data) {
+        if (dataKey && data[dataKey]) {
+          params = params.set(dataKey, data[dataKey]);
+        }
       }
     }
-    const options = {
-      headers: this.getAuthenticatedJsonHeaders(),
-      params,
-      withCredentials: true,
-    };
-    return this.httpClient
-      .get<T>(this.getEndpointHostUrl() + path, options)
-      .pipe(
-        tap(
-          () => {},
-          (err: HttpErrorResponse) => {
-            // Force logout if unauthorized OR forbidden
-            if (err.status === 401 || err.status === 403) {
-              this.userStateService.clearToken();
-              this.router.navigateByUrl('/', { replaceUrl: true });
-            }
-          }
-        )
-      );
-  }
-
-  public authenticatedGetWithArrayParams<T>(
-    path: string,
-    data: { [param: string]: string } = {}
-  ): Observable<T> {
-    let params = new HttpParams();
-    params = this.arrayParamsSet(params, data);
     const options = {
       headers: this.getAuthenticatedJsonHeaders(),
       params,
