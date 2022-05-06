@@ -1,9 +1,7 @@
-<nb-layout>
-  <nb-layout-column *ngFor="let event of latestEvents$ | async">
-    <nb-card>
-      <nb-card-header>{{event.title}}</nb-card-header>
-      <nb-card-body>{{event.description}}</nb-card-body>
-      <nb-card-footer>{{event.event_start_date | date}} - {{event.event_end_date | date}}</nb-card-footer>
-    </nb-card>
-  </nb-layout-column>
-</nb-layout>
+<div *ngIf="latestEvents$ | async as latestEvents">
+  <nb-card *ngFor="let event of latestEvents">
+    <nb-card-header>{{event.title}}</nb-card-header>
+    <nb-card-body>{{event.description}}</nb-card-body>
+    <nb-card-footer>{{event.event_start_date | date:'long'}} to {{event.event_end_date | date:'long'}}</nb-card-footer>
+  </nb-card>
+</div>
