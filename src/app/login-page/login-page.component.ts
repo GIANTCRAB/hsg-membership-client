@@ -38,9 +38,7 @@ export class LoginPageComponent implements OnInit {
     this.apiService
       .get('/user-auth/csrf-token')
       .pipe(first())
-      .subscribe((result) => {
-        console.log(result);
-      });
+      .subscribe(() => {});
   }
 
   login() {
