@@ -15,6 +15,7 @@ import { FormState } from '../../shared-interfaces/form-state';
 export class FormStateMessageComponent implements OnInit {
   @Input()
   formState?: FormState;
+  objectKeys = Object.keys;
 
   constructor() {}
 

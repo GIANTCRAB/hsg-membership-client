@@ -5,6 +5,7 @@ import { FormState } from '../shared-interfaces/form-state';
 import { ApiService } from '../services/api.service';
 import { LoginTokenEntity } from '../entities/login-token.entity';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+import { HttpErrorExceptionMessage } from '../shared-interfaces/http-error-exception-message';
 
 @Component({
   selector: 'app-login-page',
@@ -18,7 +19,7 @@ export class LoginPageComponent implements OnInit {
     isLoading: false,
     isSuccessful: false,
     hasErrors: false,
-    errors: [],
+    errorState: undefined,
   });
 
   constructor(
@@ -38,7 +39,7 @@ export class LoginPageComponent implements OnInit {
       isLoading: true,
       isSuccessful: false,
       hasErrors: false,
-      errors: [],
+      errorState: undefined,
     });
 
     this.apiService
@@ -50,7 +51,7 @@ export class LoginPageComponent implements OnInit {
             isLoading: false,
             isSuccessful: true,
             hasErrors: false,
-            errors: [],
+            errorState: undefined,
           });
         },
         error: (error: HttpErrorResponse) => {
@@ -58,19 +59,23 @@ export class LoginPageComponent implements OnInit {
             error.status === HttpStatusCode.BadRequest ||
             error.status === HttpStatusCode.UnprocessableEntity
           ) {
+            const errorMessage: HttpErrorExceptionMessage = error.error;
             // Validation errors
             this.loginFormState$.next({
               isLoading: false,
               isSuccessful: false,
               hasErrors: true,
-              errors: [error.error.message],
+              errorState: errorMessage,
             });
           } else {
             this.loginFormState$.next({
               isLoading: false,
               isSuccessful: false,
               hasErrors: true,
-              errors: ['Server error, please try again.'],
+              errorState: {
+                status: error.status,
+                errors: [{ email: 'Server error, please try again.' }],
+              },
             });
           }
         },
