@@ -34,7 +34,14 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.apiService
+      .get('/user-auth/csrf-token')
+      .pipe(first())
+      .subscribe((result) => {
+        console.log(result);
+      });
+  }
 
   login() {
     this.loginFormState$.next({
