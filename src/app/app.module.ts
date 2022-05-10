@@ -7,8 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
   NbActionsModule,
+  NbButtonModule,
   NbCardModule,
   NbIconModule,
+  NbInputModule,
   NbLayoutModule,
   NbSidebarModule,
   NbThemeModule,
@@ -17,11 +19,19 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { SharedComponentsModule } from './shared-components/shared-components.module';
 import { MainPageComponent } from './main-page/main-page.component';
 import { ListEventsEmbedComponent } from './main-page/list-events-embed/list-events-embed.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, MainPageComponent, ListEventsEmbedComponent],
+  declarations: [
+    AppComponent,
+    MainPageComponent,
+    ListEventsEmbedComponent,
+    LoginPageComponent,
+  ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -31,8 +41,10 @@ import { ListEventsEmbedComponent } from './main-page/list-events-embed/list-eve
     NbSidebarModule,
     NbEvaIconsModule,
     NbIconModule,
+    NbInputModule,
     SharedComponentsModule,
     NbCardModule,
+    NbButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

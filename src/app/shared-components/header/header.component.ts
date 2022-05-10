@@ -13,6 +13,11 @@ export class HeaderComponent implements OnInit {
       link: '/',
       icon: 'home-outline',
     },
+    {
+      title: 'Login',
+      link: '/login',
+      icon: 'home-outline',
+    },
   ];
 
   constructor() {}
