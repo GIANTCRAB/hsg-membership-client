@@ -1,0 +1,5 @@
+<div *ngIf="formState">
+  <nb-alert status="success" *ngIf="formState.isSuccessful">Successful!</nb-alert>
+  <nb-alert status="info" *ngIf="formState.isLoading">Loading...</nb-alert>
+  <nb-alert status="danger" *ngIf="formState.hasErrors">Error! <span *ngFor="let error of formState.errors">{{error}}</span></nb-alert>
+</div>
