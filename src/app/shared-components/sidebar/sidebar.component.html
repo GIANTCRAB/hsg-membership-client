@@ -1,1 +1,9 @@
-<nb-menu [items]="(userStateService.userProfile$ | async) === undefined ? items : loggedInItems"></nb-menu>
+<div *ngIf="(userStateService.userProfile$ | async) as userProfile else guest">
+  <nb-menu [items]="userItems"
+           *ngIf="userProfile.is_member === false && userProfile.is_admin === false"></nb-menu>
+  <nb-menu [items]="memberItems"
+           *ngIf="userProfile.is_member === true && userProfile.is_admin === false"></nb-menu>
+</div>
+<ng-template #guest>
+  <nb-menu [items]="items"></nb-menu>
+</ng-template>

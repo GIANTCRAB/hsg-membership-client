@@ -40,7 +40,7 @@ export class SidebarComponent implements OnInit {
     },
   ];
 
-  loggedInItems: NbMenuItem[] = [
+  userItems: NbMenuItem[] = [
     {
       title: 'Home',
       link: '/',
@@ -58,6 +58,40 @@ export class SidebarComponent implements OnInit {
           title: 'Create',
           link: '/space-events/create',
           icon: 'plus-outline',
+        },
+      ],
+      icon: 'map-outline',
+    },
+    {
+      title: 'Logout',
+      link: '/logout',
+      icon: 'log-out-outline',
+    },
+  ];
+
+  memberItems: NbMenuItem[] = [
+    {
+      title: 'Home',
+      link: '/',
+      icon: 'home-outline',
+    },
+    {
+      title: 'Space Events',
+      children: [
+        {
+          title: 'Upcoming',
+          link: '/space-events',
+          icon: 'map-outline',
+        },
+        {
+          title: 'Create',
+          link: '/space-events/create',
+          icon: 'plus-outline',
+        },
+        {
+          title: 'Host Events',
+          link: '/space-events/host',
+          icon: 'calendar-outline',
         },
       ],
       icon: 'map-outline',
