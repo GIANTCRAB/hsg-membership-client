@@ -9,11 +9,13 @@ import {
   NbActionsModule,
   NbButtonModule,
   NbCardModule,
+  NbDatepickerModule,
   NbIconModule,
   NbInputModule,
   NbLayoutModule,
   NbSidebarModule,
   NbThemeModule,
+  NbTimepickerModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { SharedComponentsModule } from './shared-components/shared-components.module';
@@ -39,6 +41,8 @@ import { LogoutPageComponent } from './logout-page/logout-page.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'cosmic' }),
+    NbDatepickerModule.forRoot(),
+    NbTimepickerModule.forRoot(),
     NbLayoutModule,
     NbActionsModule,
     NbSidebarModule,

@@ -1,1 +1,22 @@
-<p>create-space-event works!</p>
+<nb-layout>
+  <nb-layout-column>
+    <form [formGroup]="createSpaceEventForm" (submit)="createSpaceEvent()"
+          *ngIf="(createSpaceEventFormState$ | async) as createSpaceEventFormState">
+      <nb-card>
+        <nb-card-body>
+          <app-form-state-message [formState]="createSpaceEventFormState"></app-form-state-message>
+          <input nbInput fullWidth formControlName="title" type="text" placeholder="Title"/>
+          <input nbInput fullWidth formControlName="description" type="text" placeholder="Description"/>
+          <input nbInput fullWidth [nbDatepicker]="datetimepicker" formControlName="event_start_date" placeholder="Event Start Date">
+          <nb-date-timepicker #datetimepicker></nb-date-timepicker>
+          <input nbInput fullWidth [nbDatepicker]="datetimepickerTwo" formControlName="event_end_date" placeholder="Event End Date">
+          <nb-date-timepicker #datetimepickerTwo></nb-date-timepicker>
+          <button nbButton fullWidth outline type="submit"
+                  [disabled]="createSpaceEventForm.invalid || createSpaceEventFormState.isLoading">
+            Create Space Event
+          </button>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </nb-layout-column>
+</nb-layout>
