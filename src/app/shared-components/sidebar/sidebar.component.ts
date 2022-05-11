@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
     {
       title: 'Space Events',
       link: '/space-events',
-      icon: 'home-outline',
+      icon: 'map-outline',
     },
     {
       title: 'Auth',
@@ -25,15 +25,15 @@ export class SidebarComponent implements OnInit {
         {
           title: 'Login',
           link: '/login',
-          icon: 'home-outline',
+          icon: 'log-in-outline',
         },
         {
           title: 'Register',
           link: '/registration',
-          icon: 'home-outline',
+          icon: 'edit-2-outline',
         },
       ],
-      icon: 'home-outline',
+      icon: 'book-open-outline',
     },
   ];
 
