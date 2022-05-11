@@ -173,15 +173,17 @@ export class ApiService {
   }
 
   /**
-   * Important side effect: upload-file is changed into the file attribute data
+   * Important side effect: fileFieldName is changed into the file attribute data
    *
    * @param path
    * @param data
+   * @param fileFieldName
    * @param singleFile
    */
   public authenticatedFilePost<T>(
     path: string,
     data: { [param: string]: string },
+    fileFieldName: string,
     singleFile: File
   ): Observable<T> {
     const options = {
@@ -192,7 +194,7 @@ export class ApiService {
     for (let paramDataKey in data) {
       formData.append(paramDataKey, data[paramDataKey]);
     }
-    formData.append('upload-file', singleFile, singleFile.name);
+    formData.append(fileFieldName, singleFile, singleFile.name);
 
     return this.httpClient.post<T>(
       this.getEndpointHostUrl() + path,
