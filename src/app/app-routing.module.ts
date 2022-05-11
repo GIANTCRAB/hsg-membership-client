@@ -5,6 +5,13 @@ import { LoginPageComponent } from './login-page/login-page.component';
 
 const routes: Routes = [
   {
+    path: 'registration',
+    loadChildren: () =>
+      import('./registration/registration.module').then(
+        (m) => m.RegistrationModule
+      ),
+  },
+  {
     path: 'login',
     component: LoginPageComponent,
   },
