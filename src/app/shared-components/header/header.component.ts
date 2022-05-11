@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { NbSidebarService } from '@nebular/theme';
 
 @Component({
   selector: 'app-header',
@@ -7,20 +8,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
-  headerActions: any[] = [
-    {
-      title: 'Home',
-      link: '/',
-      icon: 'home-outline',
-    },
-    {
-      title: 'Login',
-      link: '/login',
-      icon: 'home-outline',
-    },
-  ];
-
-  constructor() {}
+  constructor(private readonly sidebarService: NbSidebarService) {}
 
   ngOnInit(): void {}
+
+  toggle() {
+    this.sidebarService.toggle(false, 'left');
+  }
 }
