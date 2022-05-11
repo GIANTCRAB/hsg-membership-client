@@ -4,9 +4,9 @@ import { BehaviorSubject, first } from 'rxjs';
 import { FormState } from '../shared-interfaces/form-state';
 import { ApiService } from '../services/api.service';
 import { LoginTokenEntity } from '../entities/login-token.entity';
-import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { HttpErrorExceptionMessage } from '../shared-interfaces/http-error-exception-message';
+import { HttpErrorResponse } from '@angular/common/http';
 import { UserStateService } from '../services/user-state.service';
+import { FormStateManager } from '../shared-classes/form-state-manager';
 
 @Component({
   selector: 'app-login-page',
@@ -16,12 +16,9 @@ import { UserStateService } from '../services/user-state.service';
 })
 export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
-  loginFormState$: BehaviorSubject<FormState> = new BehaviorSubject<FormState>({
-    isLoading: false,
-    isSuccessful: false,
-    hasErrors: false,
-    errorState: undefined,
-  });
+  loginFormState$: BehaviorSubject<FormState> = new BehaviorSubject<FormState>(
+    FormStateManager.defaultFormState
+  );
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -42,50 +39,19 @@ export class LoginPageComponent implements OnInit {
   }
 
   login() {
-    this.loginFormState$.next({
-      isLoading: true,
-      isSuccessful: false,
-      hasErrors: false,
-      errorState: undefined,
-    });
+    FormStateManager.handleLoading(this.loginFormState$);
 
     this.apiService
       .post<LoginTokenEntity>('/user-auth/login', this.loginForm.getRawValue())
       .pipe(first())
       .subscribe({
         next: (result) => {
-          this.loginFormState$.next({
-            isLoading: false,
-            isSuccessful: true,
-            hasErrors: false,
-            errorState: undefined,
-          });
+          FormStateManager.handleSuccess(this.loginFormState$);
           this.userStateService.setToken(result);
+          this.loginForm.reset();
         },
         error: (error: HttpErrorResponse) => {
-          if (
-            error.status === HttpStatusCode.BadRequest ||
-            error.status === HttpStatusCode.UnprocessableEntity
-          ) {
-            const errorMessage: HttpErrorExceptionMessage = error.error;
-            // Validation errors
-            this.loginFormState$.next({
-              isLoading: false,
-              isSuccessful: false,
-              hasErrors: true,
-              errorState: errorMessage,
-            });
-          } else {
-            this.loginFormState$.next({
-              isLoading: false,
-              isSuccessful: false,
-              hasErrors: true,
-              errorState: {
-                status: error.status,
-                errors: [{ email: 'Server error, please try again.' }],
-              },
-            });
-          }
+          FormStateManager.handleError(this.loginFormState$, error);
         },
       });
   }
