@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, first } from 'rxjs';
 import { FormState } from '../shared-interfaces/form-state';
 import { ApiService } from '../services/api.service';
-import { LoginTokenEntity } from '../entities/login-token.entity';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserStateService } from '../services/user-state.service';
 import { FormStateManager } from '../shared-classes/form-state-manager';
+import { UserTokenDto } from './user-token-dto';
 
 @Component({
   selector: 'app-login-page',
@@ -42,12 +42,12 @@ export class LoginPageComponent implements OnInit {
     FormStateManager.handleLoading(this.loginFormState$);
 
     this.apiService
-      .post<LoginTokenEntity>('/user-auth/login', this.loginForm.getRawValue())
+      .post<UserTokenDto>('/user-auth/login', this.loginForm.getRawValue())
       .pipe(first())
       .subscribe({
         next: (result) => {
           FormStateManager.handleSuccess(this.loginFormState$);
-          this.userStateService.setToken(result);
+          this.userStateService.setToken(result.login_token);
           this.loginForm.reset();
         },
         error: (error: HttpErrorResponse) => {
