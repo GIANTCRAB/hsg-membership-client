@@ -7,13 +7,13 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserStateService } from '../services/user-state.service';
+import { UserAuthStateService } from '../services/user-auth-state.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticatedUserGuard implements CanActivate, CanActivateChild {
-  constructor(private readonly userStateService: UserStateService) {}
+  constructor(private readonly userAuthStateService: UserAuthStateService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -23,7 +23,7 @@ export class AuthenticatedUserGuard implements CanActivate, CanActivateChild {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.userStateService.isLoggedIn();
+    return this.userAuthStateService.isLoggedIn();
   }
 
   canActivateChild(
@@ -34,6 +34,6 @@ export class AuthenticatedUserGuard implements CanActivate, CanActivateChild {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.userStateService.isLoggedIn();
+    return this.userAuthStateService.isLoggedIn();
   }
 }
