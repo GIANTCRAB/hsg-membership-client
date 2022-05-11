@@ -13,20 +13,27 @@ export class UserAuthStateService {
     private readonly apiService: ApiService
   ) {}
 
-  public isLoggedIn(): boolean | Observable<boolean> {
+  public isLoggedIn(): Observable<boolean> {
     if (this.userStateService.getToken() !== null) {
       return this.apiService
         .authenticatedGet<UserEntity>('/user-profiles/self')
         .pipe(
           catchError(() => of(null)),
-          map((result) => result !== null && result !== undefined)
+          map((result) => {
+            if (result !== null && result !== undefined) {
+              this.userStateService.setUserProfile(result);
+              return true;
+            }
+            this.userStateService.resetUserProfile();
+            return false;
+          })
         );
     }
 
-    return false;
+    return of(false);
   }
 
-  public isLoggedInMember(): boolean | Observable<boolean> {
+  public isLoggedInMember(): Observable<boolean> {
     if (this.userStateService.getToken() !== null) {
       return this.apiService
         .authenticatedGet<UserEntity>('/user-profiles/self')
@@ -42,10 +49,10 @@ export class UserAuthStateService {
         );
     }
 
-    return false;
+    return of(false);
   }
 
-  public isLoggedInAdmin(): boolean | Observable<boolean> {
+  public isLoggedInAdmin(): Observable<boolean> {
     if (this.userStateService.getToken() !== null) {
       return this.apiService
         .authenticatedGet<UserEntity>('/user-profiles/self')
@@ -61,6 +68,6 @@ export class UserAuthStateService {
         );
     }
 
-    return false;
+    return of(false);
   }
 }
