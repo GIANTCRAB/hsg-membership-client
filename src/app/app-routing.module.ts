@@ -14,6 +14,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'space-events',
+    loadChildren: () =>
+      import('./space-events/space-events.module').then(
+        (m) => m.SpaceEventsModule
+      ),
+  },
+  {
     path: 'login',
     component: LoginPageComponent,
   },
