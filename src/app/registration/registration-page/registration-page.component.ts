@@ -60,4 +60,11 @@ export class RegistrationPageComponent implements OnInit {
         },
       });
   }
+
+  public passwordComparisonEquality(): boolean {
+    return (
+      this.registrationForm.get('password')?.value ===
+      this.registrationForm.get('confirm_password')?.value
+    );
+  }
 }
