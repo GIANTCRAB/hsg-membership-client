@@ -66,8 +66,8 @@ export class FormStateManager {
         successMessage: '',
         hasErrors: true,
         errorState: {
-          status: error.status,
-          errors: [{ server: errorMessage }],
+          statusCode: error.status,
+          message: [errorMessage],
         },
       });
     }
