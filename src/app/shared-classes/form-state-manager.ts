@@ -30,13 +30,20 @@ export class FormStateManager {
         errorState: errorMessage,
       });
     } else {
+      let errorMessage = 'Server error, please try again.';
+      switch (error.status) {
+        case HttpStatusCode.TooManyRequests:
+          errorMessage =
+            "Please slow down, you're sending too many requests at a time.";
+          break;
+      }
       givenFormState$.next({
         isLoading: false,
         isSuccessful: false,
         hasErrors: true,
         errorState: {
           status: error.status,
-          errors: [{ server: 'Server error, please try again.' }],
+          errors: [{ server: errorMessage }],
         },
       });
     }
