@@ -213,14 +213,14 @@ export class ApiService {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      Authorization: 'Bearer ' + this.userStateService.getToken(),
+      Authorization: 'Bearer ' + this.userStateService.getToken()?.value,
     });
   }
 
   private getAuthenticatedFileHeaders(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json',
-      Authorization: 'Bearer ' + this.userStateService.getToken(),
+      Authorization: 'Bearer ' + this.userStateService.getToken()?.value,
     });
   }
 }
