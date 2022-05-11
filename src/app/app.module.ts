@@ -21,6 +21,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { ListEventsEmbedComponent } from './main-page/list-events-embed/list-events-embed.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LogoutPageComponent } from './logout-page/logout-page.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MainPageComponent,
     ListEventsEmbedComponent,
     LoginPageComponent,
+    LogoutPageComponent,
   ],
   imports: [
     BrowserModule,
