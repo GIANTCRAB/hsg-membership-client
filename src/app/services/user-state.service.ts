@@ -16,10 +16,14 @@ export class UserStateService {
 
   public clearToken(): void {
     this.storageService.removeItem(this.TOKEN_KEY);
+    this.resetUserProfile();
   }
 
   public setToken(tokenValue: LoginTokenEntity) {
     this.storageService.setJson(this.TOKEN_KEY, tokenValue);
+    if (tokenValue.user) {
+      this.setUserProfile(tokenValue.user);
+    }
   }
 
   public getToken(): LoginTokenEntity | null {

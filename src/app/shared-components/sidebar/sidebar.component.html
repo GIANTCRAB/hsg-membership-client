@@ -1,1 +1,1 @@
-<nb-menu [items]="(userStateService.userProfile$ | async) ? loggedInItems : items"></nb-menu>
+<nb-menu [items]="(userStateService.userProfile$ | async) === undefined ? items : loggedInItems"></nb-menu>

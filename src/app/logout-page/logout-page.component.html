@@ -1,1 +1,13 @@
-<p>logout-page works!</p>
+<nb-layout>
+  <nb-layout-column>
+    <nb-card>
+      <nb-card-body *ngIf="logoutFormState$ | async as logoutFormState">
+        <app-form-state-message [formState]="logoutFormState"></app-form-state-message>
+        <button nbButton fullWidth outline status="danger" type="button" (click)="doLogout()"
+                [disabled]="logoutFormState.isLoading">
+          Confirm Logout
+        </button>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>
