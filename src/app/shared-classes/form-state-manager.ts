@@ -4,18 +4,40 @@ import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { HttpErrorExceptionMessage } from '../shared-interfaces/http-error-exception-message';
 
 export class FormStateManager {
-  static handleSuccess(givenFormState$: BehaviorSubject<FormState>) {
+  public static defaultFormState: FormState = {
+    isLoading: false,
+    isSuccessful: false,
+    successMessage: '',
+    hasErrors: false,
+    errorState: undefined,
+  };
+
+  static handleLoading(givenFormState$: BehaviorSubject<FormState>) {
+    givenFormState$.next({
+      isLoading: true,
+      isSuccessful: false,
+      successMessage: '',
+      hasErrors: false,
+      errorState: undefined,
+    });
+  }
+
+  static handleSuccess(
+    givenFormState$: BehaviorSubject<FormState>,
+    successMessage: string = 'Successful!'
+  ) {
     givenFormState$.next({
       isLoading: false,
       isSuccessful: true,
+      successMessage: successMessage,
       hasErrors: false,
       errorState: undefined,
     });
   }
 
   static handleError(
-    error: HttpErrorResponse,
-    givenFormState$: BehaviorSubject<FormState>
+    givenFormState$: BehaviorSubject<FormState>,
+    error: HttpErrorResponse
   ) {
     if (
       error.status === HttpStatusCode.BadRequest ||
@@ -26,6 +48,7 @@ export class FormStateManager {
       givenFormState$.next({
         isLoading: false,
         isSuccessful: false,
+        successMessage: '',
         hasErrors: true,
         errorState: errorMessage,
       });
@@ -40,6 +63,7 @@ export class FormStateManager {
       givenFormState$.next({
         isLoading: false,
         isSuccessful: false,
+        successMessage: '',
         hasErrors: true,
         errorState: {
           status: error.status,
