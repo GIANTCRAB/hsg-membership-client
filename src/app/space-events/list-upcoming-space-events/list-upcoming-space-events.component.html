@@ -5,11 +5,9 @@
         <nb-card-header>{{event.title}}</nb-card-header>
         <nb-card-body>
           <p>{{event.description}}</p>
-          <div class="row">
-            <button nbButton routerLink="/space-events/{{event.id}}" type="button">
-              View Event
-            </button>
-          </div>
+          <button nbButton routerLink="/space-events/{{event.id}}" type="button">
+            View Event
+          </button>
         </nb-card-body>
         <nb-card-footer>{{event.event_start_date | date:'long'}}
           to {{event.event_end_date | date:'long'}}</nb-card-footer>
