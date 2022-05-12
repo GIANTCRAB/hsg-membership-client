@@ -1,3 +1,5 @@
+import { UserEntity } from './user.entity';
+
 export interface SpaceEventEntity {
   id: string;
   title: string;
@@ -8,7 +10,7 @@ export interface SpaceEventEntity {
   updated_at: Date;
   event_start_date: Date;
   event_end_date: Date;
-  organizer: object | null;
-  host: object | null;
+  organizer: UserEntity | null;
+  host: UserEntity | null;
   photo: object | null;
 }

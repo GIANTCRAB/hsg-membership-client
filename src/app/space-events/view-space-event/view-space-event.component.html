@@ -1,3 +1,33 @@
 <div *ngIf="retrievedSpaceEvent$ | async as retrievedSpaceEvent">
-  {{retrievedSpaceEvent | json}}
+  <div class="row">
+    <div class="col">
+      <nb-card>
+        <nb-card-header>{{retrievedSpaceEvent.title}}</nb-card-header>
+        <nb-card-body>
+          <p>{{retrievedSpaceEvent.description}}</p>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col">
+      <nb-card>
+        <nb-card-header>
+          Event Details
+        </nb-card-header>
+        <nb-card-body>
+          <div>{{retrievedSpaceEvent.event_start_date | date:'long'}} to {{retrievedSpaceEvent.event_end_date | date:'long'}}</div>
+          <div>
+            <span>Organized By:&nbsp;</span><span
+            *ngIf="retrievedSpaceEvent.organizer">{{retrievedSpaceEvent.organizer.first_name}}</span>
+          </div>
+          <div>
+            <span>Hosted By:&nbsp;</span>
+            <span
+              *ngIf="retrievedSpaceEvent.host">{{retrievedSpaceEvent.host.first_name}}</span>
+            <span
+              *ngIf="!retrievedSpaceEvent.host">No member is hosting yet!</span>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
 </div>
