@@ -25,6 +25,7 @@ import { ListEventsEmbedComponent } from './main-page/list-events-embed/list-eve
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LogoutPageComponent } from './logout-page/logout-page.component';
+import { NbMomentDateModule } from '@nebular/moment';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { LogoutPageComponent } from './logout-page/logout-page.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'cosmic' }),
+    NbMomentDateModule,
     NbDatepickerModule.forRoot(),
     NbTimepickerModule.forRoot(),
     NbMenuModule.forRoot(),
