@@ -4,12 +4,10 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { BehaviorSubject, first, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { ListDataDto } from '../../shared-dto/list-data.dto';
 import { SpaceEventEntity } from '../../entities/space-event.entity';
-import { ApiService } from '../../services/api.service';
-import { ActivatedRoute } from '@angular/router';
-import { GetPageDto } from '../../shared-dto/get-page.dto';
+import { ListDataService } from '../../services/list-data.service';
 
 @Component({
   selector: 'app-list-need-host-events',
@@ -23,32 +21,14 @@ export class ListNeedHostEventsComponent implements OnInit, OnDestroy {
   > = new BehaviorSubject<ListDataDto<SpaceEventEntity> | undefined>(undefined);
   routeSubscription?: Subscription;
 
-  constructor(
-    private readonly apiService: ApiService,
-    private readonly route: ActivatedRoute
-  ) {}
+  constructor(private readonly listDataService: ListDataService) {}
 
   ngOnInit(): void {
-    this.routeSubscription = this.route.params.subscribe((params) => {
-      let parsedPage = 1;
-      if (params['page']) {
-        parsedPage = Number(params['page']);
-        if (parsedPage < 1) {
-          parsedPage = 1;
-        }
-      }
-      const getPageDto: GetPageDto = { page: parsedPage.toString() };
-
-      this.apiService
-        .get<ListDataDto<SpaceEventEntity>>(
-          '/space-events/need-host',
-          getPageDto
-        )
-        .pipe(first())
-        .subscribe((result) => {
-          this.retrievedNeedHostEvents$.next(result);
-        });
-    });
+    this.routeSubscription =
+      this.listDataService.routeSubscribe<SpaceEventEntity>(
+        '/space-events/need-host',
+        this.retrievedNeedHostEvents$
+      );
   }
 
   ngOnDestroy(): void {

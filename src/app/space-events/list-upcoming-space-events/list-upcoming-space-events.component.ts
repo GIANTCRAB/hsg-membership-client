@@ -6,10 +6,10 @@ import {
 } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { ListDataDto } from '../../shared-dto/list-data.dto';
-import { BehaviorSubject, first, Subscription } from 'rxjs';
-import { GetPageDto } from '../../shared-dto/get-page.dto';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SpaceEventEntity } from '../../entities/space-event.entity';
+import { ListDataService } from '../../services/list-data.service';
 
 @Component({
   selector: 'app-list-upcoming-space-events',
@@ -25,30 +25,16 @@ export class ListUpcomingSpaceEventsComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly apiService: ApiService,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly listDataService: ListDataService
   ) {}
 
   ngOnInit(): void {
-    this.routeSubscription = this.route.params.subscribe((params) => {
-      let parsedPage = 1;
-      if (params['page']) {
-        parsedPage = Number(params['page']);
-        if (parsedPage < 1) {
-          parsedPage = 1;
-        }
-      }
-      const getPageDto: GetPageDto = { page: parsedPage.toString() };
-
-      this.apiService
-        .get<ListDataDto<SpaceEventEntity>>(
-          '/space-events/upcoming',
-          getPageDto
-        )
-        .pipe(first())
-        .subscribe((result) => {
-          this.retrievedUpcomingSpaceEvents$.next(result);
-        });
-    });
+    this.routeSubscription =
+      this.listDataService.routeSubscribe<SpaceEventEntity>(
+        '/space-events/upcoming',
+        this.retrievedUpcomingSpaceEvents$
+      );
   }
 
   ngOnDestroy(): void {
