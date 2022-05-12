@@ -14,9 +14,15 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedComponentsModule } from '../shared-components/shared-components.module';
 import { ListNeedHostEventsComponent } from './list-need-host-events/list-need-host-events.component';
+import { ViewSpaceEventComponent } from './view-space-event/view-space-event.component';
 
 @NgModule({
-  declarations: [CreateSpaceEventComponent, ListUpcomingSpaceEventsComponent, ListNeedHostEventsComponent],
+  declarations: [
+    CreateSpaceEventComponent,
+    ListUpcomingSpaceEventsComponent,
+    ListNeedHostEventsComponent,
+    ViewSpaceEventComponent,
+  ],
   imports: [
     CommonModule,
     SpaceEventsRoutingModule,
