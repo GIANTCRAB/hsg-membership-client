@@ -1,7 +1,15 @@
-<div *ngIf="latestEvents$ | async as latestEvents">
-  <nb-card *ngFor="let event of latestEvents">
-    <nb-card-header>{{event.title}}</nb-card-header>
-    <nb-card-body>{{event.description}}</nb-card-body>
-    <nb-card-footer>{{event.event_start_date | date:'long'}} to {{event.event_end_date | date:'long'}}</nb-card-footer>
-  </nb-card>
+<div class="row" *ngIf="latestEvents$ | async as latestEvents">
+  <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let event of latestEvents">
+    <nb-card>
+      <nb-card-header>{{event.title}}</nb-card-header>
+      <nb-card-body>
+        <p>{{event.description}}</p>
+        <button nbButton routerLink="/space-events/{{event.id}}" type="button">
+          View Event
+        </button>
+      </nb-card-body>
+      <nb-card-footer>{{event.event_start_date | date:'long'}}
+        to {{event.event_end_date | date:'long'}}</nb-card-footer>
+    </nb-card>
+  </div>
 </div>
