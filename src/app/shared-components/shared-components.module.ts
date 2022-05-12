@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import {
   NbAlertModule,
+  NbButtonGroupModule,
   NbButtonModule,
   NbIconModule,
   NbLayoutModule,
@@ -13,10 +14,21 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { RouterModule } from '@angular/router';
 import { FormStateMessageComponent } from './form-state-message/form-state-message.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ListPaginationComponent } from './list-pagination/list-pagination.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FormStateMessageComponent, SidebarComponent],
-  exports: [HeaderComponent, FormStateMessageComponent, SidebarComponent],
+  declarations: [
+    HeaderComponent,
+    FormStateMessageComponent,
+    SidebarComponent,
+    ListPaginationComponent,
+  ],
+  exports: [
+    HeaderComponent,
+    FormStateMessageComponent,
+    SidebarComponent,
+    ListPaginationComponent,
+  ],
   imports: [
     CommonModule,
     NbLayoutModule,
@@ -27,6 +39,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     NbIconModule,
     RouterModule,
     NbAlertModule,
+    NbButtonGroupModule,
   ],
 })
 export class SharedComponentsModule {}

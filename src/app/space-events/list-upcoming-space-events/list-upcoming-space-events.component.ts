@@ -29,7 +29,7 @@ export class ListUpcomingSpaceEventsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.routeSubscription = this.route.queryParams.subscribe((params) => {
+    this.routeSubscription = this.route.params.subscribe((params) => {
       let parsedPage = 1;
       if (params['page']) {
         parsedPage = Number(params['page']);

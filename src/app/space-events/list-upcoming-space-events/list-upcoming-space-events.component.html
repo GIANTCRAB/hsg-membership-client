@@ -1,3 +1,20 @@
 <div *ngIf="retrievedUpcomingSpaceEvents$ | async as retrievedUpcomingSpaceEvents">
-  {{retrievedUpcomingSpaceEvents | json}}
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let event of retrievedUpcomingSpaceEvents.data">
+      <nb-card>
+        <nb-card-header>{{event.title}}</nb-card-header>
+        <nb-card-body>
+          <p>{{event.description}}</p>
+          <div class="row">
+            <button nbButton routerLink="/space-events/{{event.id}}" type="button">
+              View Event
+            </button>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>{{event.event_start_date | date:'long'}}
+          to {{event.event_end_date | date:'long'}}</nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+  <app-list-pagination [dataList]="retrievedUpcomingSpaceEvents"></app-list-pagination>
 </div>

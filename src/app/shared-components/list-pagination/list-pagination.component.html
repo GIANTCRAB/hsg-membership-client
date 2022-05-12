@@ -1,0 +1,26 @@
+<div class="row justify-content-center" *ngIf="dataList">
+  <div class="col">
+    <nb-button-group class="text-center">
+      <button nbButtonToggle type="button" [pressed]="true"
+              *ngIf="dataList.current_page !== 1"
+              [routerLink]="[{page: dataList.current_page - 1}]">
+        <nb-icon icon="arrow-ios-back-outline"></nb-icon>
+      </button>
+      <button nbButton type="button"
+              *ngIf="dataList.current_page === 1">
+        <nb-icon icon="arrow-ios-back-outline"></nb-icon>
+      </button>
+      <button nbButtonToggle type="button" [pressed]="true"
+              [routerLink]="[{page: dataList.current_page}]">{{dataList.current_page}}</button>
+      <button nbButton type="button"
+              *ngIf="dataList.current_page === dataList.last_page">
+        <nb-icon icon="arrow-ios-forward-outline"></nb-icon>
+      </button>
+      <button nbButtonToggle type="button" [pressed]="true"
+              *ngIf="dataList.current_page !== dataList.last_page"
+              [routerLink]="[{page: dataList.current_page + 1}]">
+        <nb-icon icon="arrow-ios-forward-outline"></nb-icon>
+      </button>
+    </nb-button-group>
+  </div>
+</div>

@@ -4,9 +4,11 @@ import { SpaceEventsRoutingModule } from './space-events-routing.module';
 import { CreateSpaceEventComponent } from './create-space-event/create-space-event.component';
 import { ListUpcomingSpaceEventsComponent } from './list-upcoming-space-events/list-upcoming-space-events.component';
 import {
+  NbButtonGroupModule,
   NbButtonModule,
   NbCardModule,
   NbDatepickerModule,
+  NbIconModule,
   NbInputModule,
   NbLayoutModule,
   NbTimepickerModule,
@@ -34,6 +36,8 @@ import { ViewSpaceEventComponent } from './view-space-event/view-space-event.com
     SharedComponentsModule,
     NbInputModule,
     NbButtonModule,
+    NbButtonGroupModule,
+    NbIconModule,
   ],
 })
 export class SpaceEventsModule {}
