@@ -5,6 +5,7 @@ import { AuthenticatedUserGuard } from '../guards/authenticated-user.guard';
 import { ListUpcomingSpaceEventsComponent } from './list-upcoming-space-events/list-upcoming-space-events.component';
 import { ListNeedHostEventsComponent } from './list-need-host-events/list-need-host-events.component';
 import { ViewSpaceEventComponent } from './view-space-event/view-space-event.component';
+import { EditSpaceEventComponent } from './edit-space-event/edit-space-event.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'host',
     component: ListNeedHostEventsComponent,
+  },
+  {
+    path: ':id/edit',
+    component: EditSpaceEventComponent,
   },
   {
     path: ':id',
