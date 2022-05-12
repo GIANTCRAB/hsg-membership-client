@@ -3,6 +3,7 @@
 @use '@nebular/theme/styles/globals' as *;
 
 @use 'bootstrap/scss/bootstrap-grid';
+@use 'bootstrap/scss/bootstrap-utilities';
 
 @include nb-install() {
   @include nb-theme-global();
