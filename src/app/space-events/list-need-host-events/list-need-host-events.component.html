@@ -1,4 +1,4 @@
-<div *ngIf="retrievedNeedHostEvents$ | async as retrievedNeedHostEvents">
+<div class="grid" *ngIf="retrievedNeedHostEvents$ | async as retrievedNeedHostEvents">
   <div class="row" *ngIf="retrievedNeedHostEvents.data.length !== 0">
     <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let event of retrievedNeedHostEvents.data">
       <nb-card>

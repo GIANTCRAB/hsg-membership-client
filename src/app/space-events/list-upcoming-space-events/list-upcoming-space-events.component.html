@@ -1,4 +1,4 @@
-<div *ngIf="retrievedUpcomingSpaceEvents$ | async as retrievedUpcomingSpaceEvents">
+<div class="grid" *ngIf="retrievedUpcomingSpaceEvents$ | async as retrievedUpcomingSpaceEvents">
   <div class="row">
     <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let event of retrievedUpcomingSpaceEvents.data">
       <nb-card>
