@@ -63,9 +63,20 @@ export class SidebarComponent implements OnInit {
       icon: 'map-outline',
     },
     {
-      title: 'Logout',
-      link: '/logout',
-      icon: 'log-out-outline',
+      title: 'User',
+      children: [
+        {
+          title: 'My Profile',
+          link: '/profiles/self',
+          icon: 'person-outline',
+        },
+        {
+          title: 'Logout',
+          link: '/logout',
+          icon: 'log-out-outline',
+        },
+      ],
+      icon: 'person-outline',
     },
   ];
 
@@ -97,9 +108,20 @@ export class SidebarComponent implements OnInit {
       icon: 'map-outline',
     },
     {
-      title: 'Logout',
-      link: '/logout',
-      icon: 'log-out-outline',
+      title: 'Member',
+      children: [
+        {
+          title: 'My Profile',
+          link: '/profiles/self',
+          icon: 'person-outline',
+        },
+        {
+          title: 'Logout',
+          link: '/logout',
+          icon: 'log-out-outline',
+        },
+      ],
+      icon: 'person-outline',
     },
   ];
 
