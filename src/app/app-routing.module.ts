@@ -21,6 +21,11 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'profiles',
+    loadChildren: () =>
+      import('./profiles/profiles.module').then((m) => m.ProfilesModule),
+  },
+  {
     path: 'login',
     component: LoginPageComponent,
   },

@@ -1,0 +1,5 @@
+<div class="grid" *ngIf="retrievedUserEntity$ | async as retrievedUserEntity">
+  <div class="row">
+    <div class="col">{{retrievedUserEntity | json}}</div>
+  </div>
+</div>
