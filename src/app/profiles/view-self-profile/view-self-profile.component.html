@@ -1,5 +1,14 @@
 <div class="grid" *ngIf="retrievedUserEntity$ | async as retrievedUserEntity">
   <div class="row">
-    <div class="col">{{retrievedUserEntity | json}}</div>
+    <div class="col">
+      <nb-card>
+        <nb-card-body>
+          <nb-user size="giant"
+                   [name]="retrievedUserEntity.first_name + ' ' + retrievedUserEntity.last_name"
+                   [title]="retrievedUserEntity.email ? retrievedUserEntity.email : 'No Email Address'">
+          </nb-user>
+        </nb-card-body>
+      </nb-card>
+    </div>
   </div>
 </div>
