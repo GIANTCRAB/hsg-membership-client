@@ -1,11 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, first } from 'rxjs';
-import { FormState } from '../../shared-interfaces/form-state';
-import { ApiService } from '../../services/api.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { FormStateManager } from '../../shared-classes/form-state-manager';
-import { UserEntity } from '../../entities/user.entity';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-registration-page',
@@ -14,57 +8,14 @@ import { UserEntity } from '../../entities/user.entity';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationPageComponent implements OnInit {
-  registrationForm: FormGroup;
-  registrationFormState$: BehaviorSubject<FormState> =
-    new BehaviorSubject<FormState>(FormStateManager.defaultFormState);
+  flipped$: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false);
 
-  constructor(
-    private readonly formBuilder: FormBuilder,
-    private readonly apiService: ApiService
-  ) {
-    this.registrationForm = formBuilder.group({
-      first_name: ['', [Validators.required]],
-      last_name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      confirm_password: ['', [Validators.required]],
-    });
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-    this.apiService
-      .get('/user-auth/csrf-token')
-      .pipe(first())
-      .subscribe(() => {});
-  }
+  ngOnInit(): void {}
 
-  register() {
-    FormStateManager.handleLoading(this.registrationFormState$);
-
-    this.apiService
-      .post<UserEntity>(
-        '/user-registration',
-        this.registrationForm.getRawValue()
-      )
-      .pipe(first())
-      .subscribe({
-        next: () => {
-          FormStateManager.handleSuccess(
-            this.registrationFormState$,
-            'Successful! Please check your email and validate your identity.'
-          );
-          this.registrationForm.reset();
-        },
-        error: (error: HttpErrorResponse) => {
-          FormStateManager.handleError(this.registrationFormState$, error);
-        },
-      });
-  }
-
-  public passwordComparisonEquality(): boolean {
-    return (
-      this.registrationForm.get('password')?.value ===
-      this.registrationForm.get('confirm_password')?.value
-    );
+  toggleFlipCard() {
+    const flippedValue = this.flipped$.getValue();
+    this.flipped$.next(!flippedValue);
   }
 }

@@ -1,0 +1,13 @@
+<form [formGroup]="registrationForm" (submit)="register()"
+      *ngIf="(registrationFormState$ | async) as registrationFormState">
+  <app-form-state-message [formState]="registrationFormState"></app-form-state-message>
+  <input nbInput fullWidth formControlName="first_name" type="text" placeholder="First Name"/>
+  <input nbInput fullWidth formControlName="last_name" type="text" placeholder="Last Name"/>
+  <input nbInput fullWidth formControlName="email" type="email" placeholder="Email Address"/>
+  <input nbInput fullWidth formControlName="password" type="password" placeholder="Password"/>
+  <input nbInput fullWidth formControlName="confirm_password" type="password" placeholder="Confirm Password"/>
+  <button nbButton fullWidth outline type="submit"
+          [disabled]="registrationForm.invalid || registrationFormState.isLoading || !passwordComparisonEquality()">
+    Register
+  </button>
+</form>

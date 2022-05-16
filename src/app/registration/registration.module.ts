@@ -10,9 +10,11 @@ import {
 } from '@nebular/theme';
 import { RegistrationRoutingModule } from './registration-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RegistrationFormComponent } from './registration-page/registration-form/registration-form.component';
+import { ConfirmationFormComponent } from './registration-page/confirmation-form/confirmation-form.component';
 
 @NgModule({
-  declarations: [RegistrationPageComponent],
+  declarations: [RegistrationPageComponent, RegistrationFormComponent, ConfirmationFormComponent],
   imports: [
     CommonModule,
     SharedComponentsModule,

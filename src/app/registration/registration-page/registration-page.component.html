@@ -1,23 +1,30 @@
 <div class="grid">
   <div class="row justify-content-md-center">
     <div class="col-sm-12 col-md-10 col-lg-8">
-      <form [formGroup]="registrationForm" (submit)="register()"
-            *ngIf="(registrationFormState$ | async) as registrationFormState">
-        <nb-card>
-          <nb-card-body>
-            <app-form-state-message [formState]="registrationFormState"></app-form-state-message>
-            <input nbInput fullWidth formControlName="first_name" type="text" placeholder="First Name"/>
-            <input nbInput fullWidth formControlName="last_name" type="text" placeholder="Last Name"/>
-            <input nbInput fullWidth formControlName="email" type="email" placeholder="Email Address"/>
-            <input nbInput fullWidth formControlName="password" type="password" placeholder="Password"/>
-            <input nbInput fullWidth formControlName="confirm_password" type="password" placeholder="Confirm Password"/>
-            <button nbButton fullWidth outline type="submit"
-                    [disabled]="registrationForm.invalid || registrationFormState.isLoading || !passwordComparisonEquality()">
-              Register
-            </button>
-          </nb-card-body>
-        </nb-card>
-      </form>
+      <nb-flip-card [flipped]="(flipped$ | async) === true" [showToggleButton]="false">
+        <nb-card-front>
+          <nb-card status="primary">
+            <nb-card-header>Registration</nb-card-header>
+            <nb-card-body>
+              <app-registration-form></app-registration-form>
+            </nb-card-body>
+            <nb-card-footer>
+              <button nbButton (click)="toggleFlipCard()">Email Confirmation</button>
+            </nb-card-footer>
+          </nb-card>
+        </nb-card-front>
+        <nb-card-back>
+          <nb-card status="info">
+            <nb-card-header>Confirmation</nb-card-header>
+            <nb-card-body>
+              <app-confirmation-form></app-confirmation-form>
+            </nb-card-body>
+            <nb-card-footer>
+              <button nbButton (click)="toggleFlipCard()">Registration Page</button>
+            </nb-card-footer>
+          </nb-card>
+        </nb-card-back>
+      </nb-flip-card>
     </div>
   </div>
 </div>
