@@ -1,1 +1,10 @@
-<p>confirmation-form works!</p>
+<form [formGroup]="confirmationForm" (submit)="submitConfirmationForm()"
+      *ngIf="(confirmationFormState$ | async) as confirmationFormState">
+  <app-form-state-message [formState]="confirmationFormState"></app-form-state-message>
+  <input nbInput fullWidth formControlName="id" type="text" placeholder="Confirmation ID"/>
+  <input nbInput fullWidth formControlName="code" type="text" placeholder="Confirmation Code"/>
+  <button nbButton fullWidth outline type="submit"
+          [disabled]="confirmationForm.invalid || confirmationFormState.isLoading">
+    Submit Confirmation
+  </button>
+</form>

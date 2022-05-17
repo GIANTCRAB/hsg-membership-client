@@ -4,6 +4,10 @@ import { RegistrationPageComponent } from './registration-page/registration-page
 
 const routes: Routes = [
   {
+    path: ':id',
+    component: RegistrationPageComponent,
+  },
+  {
     path: '',
     component: RegistrationPageComponent,
     pathMatch: 'full',
