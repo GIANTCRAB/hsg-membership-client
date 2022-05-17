@@ -51,7 +51,7 @@ export class EditSelfProfileFormComponent implements OnInit {
       )
       .pipe(first())
       .subscribe({
-        next: (result) => {
+        next: () => {
           FormStateManager.handleSuccess(this.editSelfFormState$);
         },
         error: (error: HttpErrorResponse) => {
