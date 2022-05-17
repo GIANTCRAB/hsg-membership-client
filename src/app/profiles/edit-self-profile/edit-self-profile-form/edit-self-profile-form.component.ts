@@ -43,7 +43,6 @@ export class EditSelfProfileFormComponent implements OnInit {
 
   editProfile() {
     FormStateManager.handleLoading(this.editSelfFormState$);
-    console.log(this.editSelfForm.getRawValue());
 
     this.apiService
       .authenticatedPost<UserEntity>(
@@ -53,7 +52,6 @@ export class EditSelfProfileFormComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: (result) => {
-          console.log(result);
           FormStateManager.handleSuccess(this.editSelfFormState$);
         },
         error: (error: HttpErrorResponse) => {
