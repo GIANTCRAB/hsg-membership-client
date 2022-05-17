@@ -48,7 +48,12 @@ export class CreateSpaceEventComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: (createSpaceEvent) => {
-          FormStateManager.handleSuccess(this.createSpaceEventFormState$);
+          FormStateManager.handleSuccess(
+            this.createSpaceEventFormState$,
+            createSpaceEvent.is_approved
+              ? 'Your event has been automatically approved as you are a member.'
+              : 'As you are not a member, your event will be pending approval.'
+          );
           this.createSpaceEventForm.reset();
         },
         error: (error: HttpErrorResponse) => {
