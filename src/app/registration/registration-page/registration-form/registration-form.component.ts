@@ -31,12 +31,7 @@ export class RegistrationFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.apiService
-      .get('/user-auth/csrf-token')
-      .pipe(first())
-      .subscribe(() => {});
-  }
+  ngOnInit(): void {}
 
   register() {
     FormStateManager.handleLoading(this.registrationFormState$);
