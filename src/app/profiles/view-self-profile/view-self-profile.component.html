@@ -3,10 +3,17 @@
     <div class="col">
       <nb-card>
         <nb-card-body>
-          <nb-user size="giant"
-                   [name]="retrievedUserEntity.first_name + ' ' + retrievedUserEntity.last_name"
-                   [title]="retrievedUserEntity.email ? retrievedUserEntity.email : 'No Email Address'">
-          </nb-user>
+          <div class="row">
+            <div class="col">
+              <nb-user size="giant"
+                       [name]="retrievedUserEntity.first_name + ' ' + retrievedUserEntity.last_name"
+                       [title]="retrievedUserEntity.email ? retrievedUserEntity.email : 'No Email Address'">
+              </nb-user>
+            </div>
+            <div class="col">
+              <button nbButton outline routerLink="./edit">Edit Profile</button>
+            </div>
+          </div>
         </nb-card-body>
       </nb-card>
     </div>
