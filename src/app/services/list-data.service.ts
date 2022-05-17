@@ -14,6 +14,8 @@ export class ListDataService {
     private readonly route: ActivatedRoute
   ) {}
 
+  private readonly getPageDto: Record<string, GetPageDto> = {};
+
   routeSubscribe<T>(
     path: string,
     retrievedItems$: BehaviorSubject<ListDataDto<T> | undefined>
@@ -26,14 +28,21 @@ export class ListDataService {
           parsedPage = 1;
         }
       }
-      const getPageDto: GetPageDto = { page: parsedPage.toString() };
+      this.getPageDto[path] = { page: parsedPage.toString() };
 
-      this.apiService
-        .get<ListDataDto<T>>(path, getPageDto)
-        .pipe(first())
-        .subscribe((result) => {
-          retrievedItems$.next(result);
-        });
+      this.refreshList(path, retrievedItems$);
     });
+  }
+
+  refreshList<T>(
+    path: string,
+    retrievedItems$: BehaviorSubject<ListDataDto<T> | undefined>
+  ) {
+    this.apiService
+      .get<ListDataDto<T>>(path, this.getPageDto[path])
+      .pipe(first())
+      .subscribe((result) => {
+        retrievedItems$.next(result);
+      });
   }
 }
