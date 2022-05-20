@@ -1,0 +1,8 @@
+<form [formGroup]="loginForm" (submit)="login()" *ngIf="(loginFormState$ | async) as loginFormState">
+  <app-form-state-message [formState]="loginFormState"></app-form-state-message>
+  <input nbInput fullWidth formControlName="email" type="email" placeholder="Email Address"/>
+  <input nbInput fullWidth formControlName="password" type="password" placeholder="Password"/>
+  <button nbButton fullWidth outline type="submit" [disabled]="loginForm.invalid || loginFormState.isLoading">
+    Login
+  </button>
+</form>

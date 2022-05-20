@@ -26,6 +26,10 @@ const routes: Routes = [
       import('./profiles/profiles.module').then((m) => m.ProfilesModule),
   },
   {
+    path: 'login/:id',
+    component: LoginPageComponent,
+  },
+  {
     path: 'login',
     component: LoginPageComponent,
   },

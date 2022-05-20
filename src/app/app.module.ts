@@ -26,6 +26,9 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LogoutPageComponent } from './logout-page/logout-page.component';
 import { NbMomentDateModule } from '@nebular/moment';
+import { LoginFormComponent } from './login-page/login-form/login-form.component';
+import { ResetPasswordFormComponent } from './login-page/reset-password-form/reset-password-form.component';
+import { PasswordResetRequestFormComponent } from './login-page/password-reset-request-form/password-reset-request-form.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,9 @@ import { NbMomentDateModule } from '@nebular/moment';
     ListEventsEmbedComponent,
     LoginPageComponent,
     LogoutPageComponent,
+    LoginFormComponent,
+    ResetPasswordFormComponent,
+    PasswordResetRequestFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, first } from 'rxjs';
-import { FormState } from '../shared-interfaces/form-state';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { BehaviorSubject, first, Subscription } from 'rxjs';
 import { ApiService } from '../services/api.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { UserStateService } from '../services/user-state.service';
-import { FormStateManager } from '../shared-classes/form-state-manager';
-import { UserTokenDto } from './user-token-dto';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -14,45 +14,38 @@ import { UserTokenDto } from './user-token-dto';
   styleUrls: ['./login-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginPageComponent implements OnInit {
-  loginForm: FormGroup;
-  loginFormState$: BehaviorSubject<FormState> = new BehaviorSubject<FormState>(
-    FormStateManager.defaultFormState
-  );
+export class LoginPageComponent implements OnInit, OnDestroy {
+  flipped$: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false);
+  resetPasswordId$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  routeSubscription?: Subscription;
 
   constructor(
-    private readonly formBuilder: FormBuilder,
     private readonly apiService: ApiService,
-    private readonly userStateService: UserStateService
-  ) {
-    this.loginForm = formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-    });
-  }
+    private readonly route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.apiService
       .get('/user-auth/csrf-token')
       .pipe(first())
       .subscribe(() => {});
+
+    this.routeSubscription = this.route.params.subscribe((params) => {
+      if (params['id'] && params['id'] !== '') {
+        this.toggleFlipCard();
+        this.resetPasswordId$.next(params['id']);
+      }
+    });
   }
 
-  login() {
-    FormStateManager.handleLoading(this.loginFormState$);
+  ngOnDestroy(): void {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
+  }
 
-    this.apiService
-      .post<UserTokenDto>('/user-auth/login', this.loginForm.getRawValue())
-      .pipe(first())
-      .subscribe({
-        next: (result) => {
-          FormStateManager.handleSuccess(this.loginFormState$);
-          this.userStateService.setToken(result.login_token);
-          this.loginForm.reset();
-        },
-        error: (error: HttpErrorResponse) => {
-          FormStateManager.handleError(this.loginFormState$, error);
-        },
-      });
+  toggleFlipCard() {
+    const flippedValue = this.flipped$.getValue();
+    this.flipped$.next(!flippedValue);
   }
 }
