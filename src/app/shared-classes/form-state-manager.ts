@@ -41,9 +41,12 @@ export class FormStateManager {
   ) {
     if (
       error.status === HttpStatusCode.BadRequest ||
-      error.status === HttpStatusCode.UnprocessableEntity
+      error.status === HttpStatusCode.UnprocessableEntity ||
+      error.status === HttpStatusCode.NotFound
     ) {
-      const errorMessage: HttpErrorExceptionMessage = error.error;
+      const errorMessage: HttpErrorExceptionMessage = error.error
+        ? error.error
+        : { message: ['Not Found'], statusCode: error.status };
       // Validation errors
       givenFormState$.next({
         isLoading: false,
