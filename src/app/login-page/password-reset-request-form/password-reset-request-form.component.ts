@@ -31,7 +31,7 @@ export class PasswordResetRequestFormComponent implements OnInit {
   requestPasswordReset() {
     FormStateManager.handleLoading(this.passwordResetRequestFormState$);
     this.apiService
-      .post('/api/password-resets')
+      .post('/password-resets', this.passwordResetRequestForm.getRawValue())
       .pipe(first())
       .subscribe({
         next: () => {

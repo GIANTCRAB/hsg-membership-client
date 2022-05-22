@@ -29,16 +29,14 @@ export class ResetPasswordFormComponent implements OnInit {
     private readonly apiService: ApiService
   ) {
     this.passwordResetForm = formBuilder.group({
-      id: ['', [Validators.required]],
+      code: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       new_password: ['', [Validators.required]],
       confirm_new_password: ['', [Validators.required]],
     });
   }
 
-  ngOnInit(): void {
-    this.passwordResetForm.patchValue({ id: this.passwordResetId });
-  }
+  ngOnInit(): void {}
 
   public passwordComparisonEquality(): boolean {
     return (
@@ -51,7 +49,7 @@ export class ResetPasswordFormComponent implements OnInit {
     FormStateManager.handleLoading(this.passwordResetFormState$);
     const passwordResetForm = this.passwordResetForm.getRawValue();
     this.apiService
-      .post('/api/password-resets/' + passwordResetForm.id, passwordResetForm)
+      .post('/password-resets/' + this.passwordResetId, passwordResetForm)
       .pipe(first())
       .subscribe({
         next: () => {
