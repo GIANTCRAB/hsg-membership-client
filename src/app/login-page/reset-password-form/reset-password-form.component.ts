@@ -6,9 +6,10 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, first } from 'rxjs';
 import { FormState } from '../../shared-interfaces/form-state';
 import { FormStateManager } from '../../shared-classes/form-state-manager';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-reset-password-form',
@@ -39,5 +40,27 @@ export class ResetPasswordFormComponent implements OnInit {
     this.passwordResetForm.patchValue({ id: this.passwordResetId });
   }
 
-  resetPassword() {}
+  public passwordComparisonEquality(): boolean {
+    return (
+      this.passwordResetForm.get('new_password')?.value ===
+      this.passwordResetForm.get('confirm_new_password')?.value
+    );
+  }
+
+  resetPassword() {
+    FormStateManager.handleLoading(this.passwordResetFormState$);
+    const passwordResetForm = this.passwordResetForm.getRawValue();
+    this.apiService
+      .post('/api/password-resets/' + passwordResetForm.id, passwordResetForm)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          FormStateManager.handleSuccess(this.passwordResetFormState$);
+          this.passwordResetForm.reset();
+        },
+        error: (error: HttpErrorResponse) => {
+          FormStateManager.handleError(this.passwordResetFormState$, error);
+        },
+      });
+  }
 }
