@@ -1,0 +1,7 @@
+<div class="grid" *ngIf="retrievedInventoryCategories$ | async as retrievedInventoryCategories">
+  <div class="row">
+    <div class="col">
+      {{retrievedInventoryCategories | json}}
+    </div>
+  </div>
+</div>

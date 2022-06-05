@@ -26,6 +26,13 @@ const routes: Routes = [
       import('./profiles/profiles.module').then((m) => m.ProfilesModule),
   },
   {
+    path: 'inventory-management',
+    loadChildren: () =>
+      import('./inventory-management/inventory-management.module').then(
+        (m) => m.InventoryManagementModule
+      ),
+  },
+  {
     path: 'login/:id',
     component: LoginPageComponent,
   },
