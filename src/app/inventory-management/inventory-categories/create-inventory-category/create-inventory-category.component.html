@@ -1,0 +1,20 @@
+<div class="grid">
+  <div class="row justify-content-md-center">
+    <div class="col-sm-12 col-md-10 col-lg-8">
+      <nb-card>
+        <nb-card-body>
+          <form [formGroup]="createInventoryCategoryForm" (submit)="createInventoryCategory()"
+                *ngIf="(createInventoryCategoryFormState$ | async) as createInventoryCategoryFormState">
+            <app-form-state-message [formState]="createInventoryCategoryFormState"></app-form-state-message>
+            <input nbInput fullWidth formControlName="title" type="text" placeholder="Category Title"/>
+            <input nbInput fullWidth formControlName="description" type="text" placeholder="Category Description"/>
+            <button nbButton fullWidth outline type="submit"
+                    [disabled]="createInventoryCategoryForm.invalid || createInventoryCategoryFormState.isLoading">
+              Create Inventory Category
+            </button>
+          </form>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>
